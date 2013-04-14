@@ -7,7 +7,7 @@ var uuid = require('node-uuid');
 
 exports.list = function(req, res){
   var client = azure.createTableService();
-
+  /*
   client.createTableIfNotExists('nodes', function(error){
 	  if(error){
 	      throw error;
@@ -29,7 +29,7 @@ exports.list = function(req, res){
 
       });
 
-
+  */
 
   res.send("respond with a resource");
 };
