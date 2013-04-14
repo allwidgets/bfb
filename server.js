@@ -2,14 +2,15 @@
 /**
  * Module dependencies.
  */
+process.env['AZURE_STORAGE_ACCOUNT'] = 'slaskhas';
+process.env['AZURE_STORAGE_ACCESS_KEY'] = 'PClz6GdXTpfzylw9Tx9n9oATv2M8HoEVRbfYRsfgzP5MfM6GC+DT4lNQhxxMXrYcVNNS+hBsNVf52OCNjS98BA==';
 
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , nodes = require('./routes/nodes')
   , http = require('http')
-  , path = require('path');
-
+    , path = require('path');
 var app = express();
 
 app.configure(function(){
@@ -34,3 +35,5 @@ app.get('/nodes/art1.json', nodes.art1 );
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+var azure = require('azure');
