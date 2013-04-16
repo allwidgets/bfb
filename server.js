@@ -8,7 +8,10 @@ var express = require('express')
   , user = require('./routes/user')
   , nodes = require('./routes/nodes')
   , http = require('http')
-    , path = require('path');
+    , path = require('path')
+    , passport = require('passport')
+    , FacebookStrategy = require('passport-facebook').Strategy;
+
 var app = express();
 
 app.configure(function(){
@@ -18,15 +21,73 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.cookieParser()); 
+  app.use(express.session({ secret: 'bfbtwabc3' }));
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler());
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+  //  app.use(express.errorHandler());
 });
 
+
+passport.use(new FacebookStrategy({
+/*
+	    clientID: '12800296836',
+		clientSecret: '3ca61fbc0460a2f82f34eb3868f8e5b8',
+		callbackURL: "http://localhost:3000/auth/facebook/callback",
+ */
+
+	    clientID: '283426731686',
+		clientSecret: '977707737983a783d6fea4ba94fe20d4',
+		callbackURL: "http://slaskhas.azurewebsites.net/auth/facebook/callback",
+		//		passReqToCallback: true
+		},
+	function(accessToken, refreshToken, profile, done) {
+	    console.log("profile:"+JSON.stringify(profile));
+	    var udata={ "facebook_uid": profile.id , "name": profile.displayName };
+	    	    user.findOrCreate(udata, function(err, user) {
+	    		    if (err) { return done(err); }
+	    		    done(null, user);
+	    		});
+	}
+	));
+
+
+passport.serializeUser(function(user, done) {
+	console.log("U"+JSON.stringify(user));
+	done(null, user);
+    });
+
+passport.deserializeUser(function(obj, done) {
+	console.log("DEZ:"+JSON.stringify(obj));
+	//	User.findById(id, function(err, user) {
+	//		done(err, user);
+	//	    });
+	done(null, obj);
+    });
+
+app.post('/login',
+	 passport.authenticate('local', { successRedirect: '/',
+		     failureRedirect: '/login' }));
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+// Facebook will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+
+app.get('/auth/facebook/callback', 
+	passport.authenticate('facebook', { successRedirect: '/?',
+		    failureRedirect: '/login' }));
+
 app.get('/', routes.index);
+app.get('/_=_', routes.index);
 app.get('/users', user.list);
 app.get('/nodes/art1.json', nodes.art1 );
 

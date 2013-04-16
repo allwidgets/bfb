@@ -18,15 +18,55 @@ exports.list = function(req, res){
     .where('PartitionKey eq ?', 'partition1');
     client.queryEntities(query, function(error, entities){
 	    if(!error){
-		console.log(entities);
+		//		console.log(entities);
 		//entities contains an array of entities
 	    }
 	});
 };
 
+
+exports.findOrCreate  = function(udata, callback ){
+    var client = azure.createTableService();
+
+    console.log("\n\nfindOrCreate:"+JSON.stringify(udata));
+    var query = azure.TableQuery
+    .select()
+    .from('users')
+    .where('FacebookUid eq ?', udata.facebook_uid );
+    
+    client.queryEntities(query, function(e,res){
+	    if (res.length<1) {
+		var rowKey = uuid.v1();
+
+		var userinfo = {
+		    RowKey: rowKey,
+		    PartitionKey: 'partition1',
+		    FacebookUid: udata.facebook_uid,
+		    Name: udata.name
+		};
+		client.insertEntity('users', userinfo, function(){
+			console.log("\n\nJUST INSERTED: "+JSON.stringify(userinfo));
+			callback(null,userinfo);			
+		    });
+		
+	    } else {
+		var db_user=res[0];
+		console.log("\n\n\n\nFOUND:"+JSON.stringify(db_user));
+		udata['RowKey']=db_user['RowKey'];
+		callback(null,udata);
+	    }
+	});
+
+};
+
+
+
 exports.show = function(req, res){
     //    var client = azure.createTableService(ServiceClient.DEVSTORE_STORAGE_ACCOUNT, ServiceClient.DEVSTORE_STORAGE_ACCESS_KEY, ServiceClient.DEVSTORE_TABLE_HOST);
     var client = azure.createTableService();
+    res = res || { send: function(r){console.log(r);} };
+
+    console.log("REQ"+req);
 
 	  /*
     
@@ -41,15 +81,12 @@ exports.show = function(req, res){
 
 	  client.queryEntities(query, function(r){console.log(r)});
 	  */
-  client.createTableIfNotExists('nodes', function(error){
+  client.createTableIfNotExists('users', function(error){
 	  if(error){
 	      throw error;
 	  } else {
 	      console.log("no error");
 	  
-
-	  var lorem = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
 	  //	  var rowKey = uuid.v1();
 	  var rowKey = "28d93c50-a5e7-11e2-b85d-d14b46979388";
 /*
@@ -65,12 +102,22 @@ exports.show = function(req, res){
 //	  client.insertEntity('nodes', item, function(){
 //	      });
 
-	  client.queryEntity('nodes', 'partition1', rowKey , function(error, serverEntity){
+
+
+		  var query = azure.TableQuery
+		      .select()
+		      .from('nodes')
+		      .where('facebook_uid eq ?', '513322529');
+
+		  client.queryEntities(query, function(r){console.log(r)});
+		  /*
+ 
+	  client.queryEntity('users', 'partition1', rowKey , function(error, serverEntity){
 		  if(!error){
 		      console.log(serverEntity);
 		  }
 	      });
-
+		  */
 
 	  };
       });
@@ -80,11 +127,3 @@ exports.show = function(req, res){
   res.send("respond with a resource");
 };
 
-/*
-		  var query = azure.TableQuery
-		      .select()
-		      .from('nodes');
-
-		  client.queryEntities(query, function(r){console.log(r)});
-
- */
