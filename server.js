@@ -2,8 +2,6 @@
 /**
  * Module dependencies.
  */
-process.env['AZURE_STORAGE_ACCOUNT'] = 'slaskhas';
-process.env['AZURE_STORAGE_ACCESS_KEY'] = 'PClz6GdXTpfzylw9Tx9n9oATv2M8HoEVRbfYRsfgzP5MfM6GC+DT4lNQhxxMXrYcVNNS+hBsNVf52OCNjS98BA==';
 
 var express = require('express')
   , routes = require('./routes')
