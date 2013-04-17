@@ -35,6 +35,8 @@ define([
 		    bvc.template = Handlebars.templates.book_control;
 		    bvc.Article = new app.ArticleObject();
 		    bvc.Article.fetch();
+		    bvc.Article.on('change',function(){bvc.render()});
+
 		},
 
 		render: function() {

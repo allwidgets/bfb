@@ -36,15 +36,16 @@ app.configure('development', function(){
 
 
 passport.use(new FacebookStrategy({
-/*
+	    /*
 	    clientID: '12800296836',
 		clientSecret: '3ca61fbc0460a2f82f34eb3868f8e5b8',
 		callbackURL: "http://localhost:3000/auth/facebook/callback",
- */
+	    */
 
 	    clientID: '283426731686',
 		clientSecret: '977707737983a783d6fea4ba94fe20d4',
 		callbackURL: "http://slaskhas.azurewebsites.net/auth/facebook/callback",
+
 		//		passReqToCallback: true
 		},
 	function(accessToken, refreshToken, profile, done) {

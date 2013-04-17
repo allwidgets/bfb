@@ -43,6 +43,7 @@ define([
 		 */
 		routes: {
 			"": "index",
+			"_=_": "index",
 			"languages/": "languages",
 			"*path": "notFound"
 		},
