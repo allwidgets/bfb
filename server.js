@@ -4,10 +4,11 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , nodes = require('./routes/nodes')
-  , http = require('http')
+    , routes = require('./routes')
+    , user = require('./routes/user')
+    , nodes = require('./routes/nodes')
+    , seed = require('./routes/seed')
+    , http = require('http')
     , path = require('path')
     , passport = require('passport')
     , FacebookStrategy = require('passport-facebook').Strategy;
@@ -34,20 +35,22 @@ app.configure('development', function(){
   //  app.use(express.errorHandler());
 });
 
-
-passport.use(new FacebookStrategy({
-	    /*
-	    clientID: '12800296836',
-		clientSecret: '3ca61fbc0460a2f82f34eb3868f8e5b8',
-		callbackURL: "http://localhost:3000/auth/facebook/callback",
-	    */
-
-	    clientID: '283426731686',
-		clientSecret: '977707737983a783d6fea4ba94fe20d4',
-		callbackURL: "http://slaskhas.azurewebsites.net/auth/facebook/callback",
-
+var facebookSetting = {
+    clientID: '283426731686',
+    clientSecret: '977707737983a783d6fea4ba94fe20d4',
+    callbackURL: "http://slaskhas.azurewebsites.net/auth/facebook/callback",
 		//		passReqToCallback: true
-		},
+};
+
+if ( process.env['OSTYPE'] && ( process.env['OSTYPE'] == "darwin11") ) {
+    facebookSetting = {
+	clientID: '12800296836',
+	clientSecret: '3ca61fbc0460a2f82f34eb3868f8e5b8',
+	callbackURL: "http://localhost:3000/auth/facebook/callback",
+    }
+};
+
+passport.use(new FacebookStrategy(facebookSetting,
 	function(accessToken, refreshToken, profile, done) {
 	    console.log("profile:"+JSON.stringify(profile));
 	    var udata={ "facebook_uid": profile.id , "name": profile.displayName };
@@ -90,6 +93,8 @@ app.get('/auth/facebook/callback',
 app.get('/', routes.index);
 app.get('/_=_', routes.index);
 app.get('/users', user.list);
+app.get('/users/me.js', user.me);
+app.get('/seed', seed.list);
 app.get('/nodes/art1.json', nodes.art1 );
 
 http.createServer(app).listen(app.get('port'), function(){

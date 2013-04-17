@@ -8,6 +8,11 @@ process.env['AZURE_STORAGE_ACCESS_KEY'] = 'PClz6GdXTpfzylw9Tx9n9oATv2M8HoEVRbfYR
 var azure = require('azure');
 var uuid = require('node-uuid');
 
+exports.me = function(req, res){
+    console.log(JSON.stringify(req.user));
+    res.setHeader('Content-Type', 'application/json');
+    res.send( JSON.stringify(req.user));
+}
 exports.list = function(req, res){
 
     var client = azure.createTableService();

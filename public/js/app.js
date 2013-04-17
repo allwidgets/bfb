@@ -28,6 +28,7 @@ require.config({
         "appContainer": "views/app_container_view",
         "appNavbar": "views/app_navbar_view",
         "appFooter": "views/app_footer_view",
+        "user": "models/user",
         "app": "../js/",
     },
     waitSeconds: 2

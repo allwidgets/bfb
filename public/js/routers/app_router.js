@@ -27,7 +27,8 @@ define([
 	"appContainer",
 	"appNavbar",
 	"appFooter",
-], function(Backbone,Uhura,Handlebars,Bootstrap,Modernizr,AppContainer,AppNavbar,AppFooter) {
+	"user",
+	], function(Backbone,Uhura,Handlebars,Bootstrap,Modernizr,AppContainer,AppNavbar,AppFooter,User) {
 
 
 	/**
@@ -66,6 +67,8 @@ define([
 			/**
 			 * Instantiate the Navbar, render it and append it to the DOM.
 			 */
+			app.me=new app.UserModel({"me": true });
+
 			var navbarView = new AppNavbar();
 			navbarView.render();
 			$('body').prepend(navbarView.el);
