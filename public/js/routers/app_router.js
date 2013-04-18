@@ -62,13 +62,17 @@ define([
 			/**
 			 * Initialize Backbone history tracking.
 			 */
-			Backbone.history.start({pushState: true});
+			Backbone.history.start({pushState: false});
 
 
 			/**
 			 * Instantiate the Navbar, render it and append it to the DOM.
 			 */
 			app.me= app.me || new app.UserModel({"me": true, "name": "" });
+			app.me.on("change:name", function(model, name) {
+				$('#given_name').html(app.me.get("given_name"));
+			    });
+			app.me.fetch();
 
 			var navbarView = new AppNavbar({ user: app.me.toJSON() } );
 			navbarView.render();
@@ -120,12 +124,8 @@ define([
 		    app.me= app.me || new app.UserModel({"me": true, "name": "" });
 		    var currentUser = app.me.toJSON();
 		    app.me.on("change:name", function(model, name) {
-			    $('#given_name').html(app.me.get("given_name"));
-			    //console.log("YY"+JSON.stringify(app.me.toJSON()));
 			    admv.admin_content();
 			});
-		    app.me.fetch();
-		    console.log("XX"+JSON.stringify(app.me.toJSON()));				
 			
 		    if (currentUser.given_name) {
 			    admv.admin_content();
