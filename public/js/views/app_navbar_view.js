@@ -41,7 +41,7 @@ define([
 			 * Check status of current user
 			 * @type {[User log status]}
 			 */
-		    var current_user = { id: "claes1" };
+		    var current_user = options.user ;
 
 			if (current_user) {
 
@@ -56,7 +56,7 @@ define([
 		},
 
 		render: function() {
-			this.$el.html(this.template());
+		    this.$el.html(this.template(app.me.toJSON()));
 			return this;
 		},
 

@@ -24,7 +24,7 @@ define([
 		url: "#",
 		initialize: function(attr, options) {
 		    if (this.get("me")) {
-			this.url="/users/me.js";
+			this.url="/users/me.json";
 		    }
 		}
 	});

@@ -42,7 +42,7 @@ var facebookSetting = {
 		//		passReqToCallback: true
 };
 
-if ( process.env['OSTYPE'] && ( process.env['OSTYPE'] == "darwin11") ) {
+if ( process.env.USER == "claesnygren" ) {
     facebookSetting = {
 	clientID: '12800296836',
 	clientSecret: '3ca61fbc0460a2f82f34eb3868f8e5b8',
@@ -53,7 +53,7 @@ if ( process.env['OSTYPE'] && ( process.env['OSTYPE'] == "darwin11") ) {
 passport.use(new FacebookStrategy(facebookSetting,
 	function(accessToken, refreshToken, profile, done) {
 	    console.log("profile:"+JSON.stringify(profile));
-	    var udata={ "facebook_uid": profile.id , "name": profile.displayName };
+	    var udata={ "facebook_uid": profile.id , "name": profile.displayName , "given_name": profile.name.givenName };
 	    	    user.findOrCreate(udata, function(err, user) {
 	    		    if (err) { return done(err); }
 	    		    done(null, user);
@@ -68,7 +68,7 @@ passport.serializeUser(function(user, done) {
     });
 
 passport.deserializeUser(function(obj, done) {
-	console.log("DEZ:"+JSON.stringify(obj));
+	//console.log("DEZ:"+JSON.stringify(obj));
 	//	User.findById(id, function(err, user) {
 	//		done(err, user);
 	//	    });
@@ -93,7 +93,7 @@ app.get('/auth/facebook/callback',
 app.get('/', routes.index);
 app.get('/_=_', routes.index);
 app.get('/users', user.list);
-app.get('/users/me.js', user.me);
+app.get('/users/me.json', user.me);
 app.get('/nodes/art1.json', nodes.art1 );
 
 app.get('/seed', seed.list);

@@ -56,10 +56,15 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 templates['app_navbar_logged_in'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Handlebars.helpers; data = data || {};
-  
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  return "<div class=\"navbar-inner\">\n	<a href=\"/\">\n  	<img alt=\"Welcome to TWA\" class=\"brand\" src=\"http://www.gatesfoundation.org/~/media/GFO/Site/Footer%20Images/bg_bill_melinda_gates_foundation_visitor_center.jpg?mh=69&mw=150\">\n	</a>\n	<ul class=\"nav pull-right\">\n		<li><a href=\"#\">About</a></li>\n		<li class=\"divider-vertical\"></li>\n		<li class=\"dropdown\">\n			<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Username <b class=\"caret\"></b></a>\n			<ul class=\"dropdown-menu\">\n			  <li><a href=\"#\">Action</a></li>\n			  <li><a href=\"#\">Another action</a></li>\n			  <li><a href=\"#\">Something else here</a></li>\n			  <li class=\"divider\"></li>\n			  <li><a href=\"#\">Separated link</a></li>\n			</ul>\n		</li>\n	</ul>\n</div>";
+  buffer += "<div class=\"navbar-inner\">\n	<a href=\"/\">\n  	<img alt=\"Welcome to TWA\" class=\"brand\" src=\"http://www.gatesfoundation.org/~/media/GFO/Site/Footer%20Images/bg_bill_melinda_gates_foundation_visitor_center.jpg?mh=69&mw=150\">\n	</a>\n	<ul class=\"nav pull-right\">\n		<li><a href=\"#\">About</a></li>\n		<li class=\"divider-vertical\"></li>\n		<li class=\"dropdown\">\n			<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><span id=\"given_name\">";
+  if (stack1 = helpers.given_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.given_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span> <b class=\"caret\"></b></a>\n			<ul class=\"dropdown-menu\">\n			  <li><a href=\"#\">Action</a></li>\n			  <li><a href=\"#\">Another action</a></li>\n			  <li><a href=\"#\">Something else here</a></li>\n			  <li class=\"divider\"></li>\n			  <li><a href=\"#\">Separated link</a></li>\n			</ul>\n		</li>\n	</ul>\n</div>";
+  return buffer;
   });
 templates['app_navbar_logged_out'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];

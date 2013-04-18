@@ -68,9 +68,9 @@ define([
 			/**
 			 * Instantiate the Navbar, render it and append it to the DOM.
 			 */
-			app.me=new app.UserModel({"me": true });
+			app.me= app.me || new app.UserModel({"me": true, "name": "" });
 
-			var navbarView = new AppNavbar();
+			var navbarView = new AppNavbar({ user: app.me.toJSON() } );
 			navbarView.render();
 			$('body').prepend(navbarView.el);
 
@@ -94,31 +94,41 @@ define([
 
 		},
 
+		admin_content: function() {
+		    require(["app/views/admin_view","app/models/nodes"], function(AdminView,Nodes) {
+			    
+			    var adminView = new AdminView();
+			    adminView.render();
+			    $('.app-container').prepend(adminView.el);
+			    //console.log(adminView.el);
+			    app.nodes.on('change reset add remove',function(){
+				    var adminView = new AdminView();
+				    console.log("app.nodes_changed");
+				    if ($(".admin-wrapper").is("*")) {
+					$(".admin-wrapper").remove();
+				    } 
+				    $('.app-container').prepend(adminView.render().el);
+				    
+				});
+			    app.nodes.fetch();
+			});		    
+		},
+
 		admin: function() {
+		    var admv=this;
 		    console.log("admin here");
-		    var currentUser = { id: "claes1"  };
+		    app.me= app.me || new app.UserModel({"me": true, "name": "" });
+		    var currentUser = app.me.toJSON();
+		    app.me.on("change:name", function(model, name) {
+			    $('#given_name').html(app.me.get("given_name"));
+			    //console.log("YY"+JSON.stringify(app.me.toJSON()));
+			    admv.admin_content();
+			});
+		    app.me.fetch();
+		    console.log("XX"+JSON.stringify(app.me.toJSON()));				
 			
-		    if (currentUser) {
-			
-			require(["app/views/admin_view","app/models/nodes"], function(AdminView,Nodes) {
-				
-				var adminView = new AdminView();
-				adminView.render();
-				//				
-				$('.app-container').prepend(adminView.el);
-				//				console.log(adminView.el);
-				app.nodes.on('change reset add remove',function(){
-					var adminView = new AdminView();
-					console.log("app.nodes_changed");
-					if ($(".admin-wrapper").is("*")) {
-					    $(".admin-wrapper").remove();
-					} 
-					$('.app-container').prepend(adminView.render().el);
-					
-				    });
-				app.nodes.fetch();
-			    });
-			
+		    if (currentUser.given_name) {
+			    admv.admin_content();
 		    }
 		},
 		/**
