@@ -21,7 +21,8 @@ define([
 	 * @type {[app.NodeModel]}
 	 */
 	app.NodeModel = Backbone.Model.extend({
-		idAttribute: "RowKey"
+		idAttribute: "RowKey",
+		urlRoot: "/nodes"
 	});
 
 	return app.NodeModel;

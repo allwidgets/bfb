@@ -1,3 +1,35 @@
 <h3>Admin</h3>
-<ul class="unstyled noderow_list">
-</ul>
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Nodes</a></li>
+    <li><a href="#tab2" data-toggle="tab">New Node</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+    <ul class="unstyled noderow_list">
+    </ul>
+    </div>
+    <div class="tab-pane" id="tab2">
+
+     <form id="new_node_form" class="form-horizontal">
+       <div class="control-group">
+         <label class="control-label" for="template">Template</label>
+         <div class="controls">
+           <input name="Template" placeholder="">
+         </div>
+       </div>
+       <div class="control-group">
+         <label class="control-label" for="template">JSON encoded Data</label>
+         <div class="controls">
+           <textarea name="Data" placeholder="">
+	   </textarea>
+         </div>
+       </div>
+       <div class="form-actions">
+         <button id="save_new_node" type="submit" class="save_new_node btn btn-primary">Save changes</button>
+       </div>
+     </form>
+
+    </div>
+  </div>
+</div>

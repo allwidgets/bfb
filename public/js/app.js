@@ -24,6 +24,8 @@ require.config({
         "handlebars": "vendor/handlebars/handlebars",
         "bootstrap": "vendor/bootstrap/bootstrap.min",
         "modernizr": "vendor/modernizr/modernizr",
+        "form2js": "vendor/form2js/form2js",
+        "jqueryToObject": "vendor/form2js/jquery.toObject",
         "templates": "templates/_templates",
         "appContainer": "views/app_container_view",
         "appNavbar": "views/app_navbar_view",

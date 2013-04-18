@@ -15,6 +15,8 @@ define([
 	"backbone",
 	"adminRow",
 	"nodes",
+	"form2js",
+	"jqueryToObject",
 	"templates",
 	], function(Backbone,NodeRow,Nodes) {
 
@@ -43,10 +45,25 @@ define([
 		    adm.$el.html(adm.template());
 		    app.nodes.each(function(obj){
 			    var arv=new app.AdminRowView({ model: obj});
-			    adm.$el.children("ul").append(arv.render().el);
+			    var el=adm.$el.find("#tab1 .noderow_list");
+			    el.append(arv.render().el);
 			});
 		    return this;
+		},
+		saveNewNode: function() {
+		    var nd=new app.NodeModel($("#new_node_form").toObject());
+		    
+		    console.log(nd.toJSON());
+		    app.nodes.add(nd);
+		    nd.save();
+
+		    return(false);
+		},
+
+		events: {
+			"click .save_new_node": "saveNewNode",
 		}
+
 	});
 
 	return app.AdminView;

@@ -6,7 +6,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   
 
 
-  return "<h3>Admin</h3>\n<ul class=\"unstyled noderow_list\">\n</ul>";
+  return "<h3>Admin</h3>\n<div class=\"tabbable\"> <!-- Only required for left/right tabs -->\n  <ul class=\"nav nav-tabs\">\n    <li class=\"active\"><a href=\"#tab1\" data-toggle=\"tab\">Nodes</a></li>\n    <li><a href=\"#tab2\" data-toggle=\"tab\">New Node</a></li>\n  </ul>\n  <div class=\"tab-content\">\n    <div class=\"tab-pane active\" id=\"tab1\">\n    <ul class=\"unstyled noderow_list\">\n    </ul>\n    </div>\n    <div class=\"tab-pane\" id=\"tab2\">\n\n     <form id=\"new_node_form\" class=\"form-horizontal\">\n       <div class=\"control-group\">\n         <label class=\"control-label\" for=\"template\">Template</label>\n         <div class=\"controls\">\n           <input name=\"Template\" placeholder=\"\">\n         </div>\n       </div>\n       <div class=\"control-group\">\n         <label class=\"control-label\" for=\"template\">JSON encoded Data</label>\n         <div class=\"controls\">\n           <textarea name=\"Data\" placeholder=\"\">\n	   </textarea>\n         </div>\n       </div>\n       <div class=\"form-actions\">\n         <button id=\"save_new_node\" type=\"submit\" class=\"save_new_node btn btn-primary\">Save changes</button>\n       </div>\n     </form>\n\n    </div>\n  </div>\n</div>\n";
   });
 templates['admin_base_row'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];

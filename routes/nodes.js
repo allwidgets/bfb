@@ -1,3 +1,9 @@
+process.env['AZURE_STORAGE_ACCOUNT'] = 'slaskhas';
+process.env['AZURE_STORAGE_ACCESS_KEY'] = 'PClz6GdXTpfzylw9Tx9n9oATv2M8HoEVRbfYRsfgzP5MfM6GC+DT4lNQhxxMXrYcVNNS+hBsNVf52OCNjS98BA==';
+
+var azure = require('azure');
+var uuid = require('node-uuid');
+var _und = require(".././node_modules/azure/node_modules/underscore/underscore-min");
 
 exports.art1 = function(req, res){
 
@@ -30,3 +36,58 @@ exports.art1 = function(req, res){
     res.send( JSON.stringify(article1));
 };
 
+
+
+exports.findOrCreate  = function(udata, callback ){
+    var client = azure.createTableService();
+
+    console.log("\n\nfindOrCreate:"+JSON.stringify(udata));
+    var query = azure.TableQuery
+    .select()
+    .from('nodes')
+    .where('FacebookUid eq ?', udata.facebook_uid );
+    
+    client.queryEntities(query, function(e,res){
+	    if (res.length<1) {
+		var rowKey = uuid.v1();
+
+		var nodeinfo = {
+		    RowKey: rowKey,
+		    PartitionKey: 'partition1',
+		    FacebookUid: udata.facebook_uid,
+		    Name: udata.name
+		};
+		client.insertEntity('nodes', nodeinfo, function(){
+			console.log("\n\nJUST INSERTED: "+JSON.stringify(nodeinfo));
+			callback(null,nodeinfo);			
+		    });
+		
+	    } else {
+		var db_node=res[0];
+		console.log("\n\n\n\nFOUND:"+JSON.stringify(db_node));
+		udata['RowKey']=db_node['RowKey'];
+		callback(null,udata);
+	    }
+	});
+
+};
+
+
+exports.create = function(req, res){    
+    res.setHeader('Content-Type', 'application/json');    
+    var ret={};
+    var client = azure.createTableService();
+    var rowKey = uuid.v1();
+
+    console.log(req.body);
+
+    var nodeinfo = req.body;
+    nodeinfo.RowKey=rowKey;
+    nodeinfo.PartitionKey= 'partition1';
+    
+    client.insertEntity('nodes', nodeinfo, function(){
+	    console.log("\n\nJUST INSERTED: "+JSON.stringify(nodeinfo));
+	    res.send( JSON.stringify(nodeinfo));
+	});
+    
+}
