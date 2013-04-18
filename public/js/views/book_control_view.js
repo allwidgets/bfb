@@ -48,7 +48,7 @@ define([
 			     ], function(ArticleControl) {
 				var articleControlView = new ArticleControl({model: bvc.Article });
 				articleControlView.render(bvc.Article);
-				bvc.$el.append(articleControlView.el);
+				bvc.$el.html(articleControlView.el);
 			    });
 		    
 		    return this;

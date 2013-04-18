@@ -45,6 +45,7 @@ define([
 				var bookControlView = new BookControl();
 				bookControlView.render();
 				bookWrapper.$el.append(bookControlView.el);
+				console.log(bookWrapper.el);
 			});
 
 			return this;

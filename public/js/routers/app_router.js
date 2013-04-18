@@ -145,6 +145,7 @@ define([
 				var loggedInView = new LoggedInView();
 				loggedInView.render();
 				$('.app-container').prepend(loggedInView.el);
+				console.log("index");
 				
 			    });
 			
