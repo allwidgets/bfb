@@ -7,9 +7,9 @@ var app = app || {};
 
 
 /**
- * require.js module with parse dependency that returns a NodeObject.
+ * require.js module with parse dependency that returns a NodeModel.
  * @param  {[Parse]} Parse) {} Extends Parse.Object.
- * @return {[app.NodeObject]} returns NodeObject.
+ * @return {[app.Nodemodel]} returns NodeModel.
  */
 define([
 	"backbone"
@@ -18,12 +18,12 @@ define([
 
 	/**
 	 * Event parse object constructor.
-	 * @type {[app.NodeObject]}
+	 * @type {[app.NodeModel]}
 	 */
-	app.NodeObject = Backbone.Model.extend({
-
+	app.NodeModel = Backbone.Model.extend({
+		idAttribute: "RowKey"
 	});
 
-	return app.NodeObject;
+	return app.NodeModel;
 
 });

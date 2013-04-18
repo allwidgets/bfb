@@ -625,3 +625,18 @@ body {
 .confirm-password {
   display: none;
 }
+
+/* admin */
+
+
+
+.admfld {
+	float: left;
+	width: 200px;
+	overflow: hidden;
+	height: 20px;
+}
+
+.admfld.fld1 {
+	width: 300px;
+}

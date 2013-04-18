@@ -43,6 +43,7 @@ define([
 		 * @type {Object}
 		 */
 		routes: {
+			"admin": "admin",
 			"": "index",
 			"_=_": "index",
 			"languages/": "languages",
@@ -89,9 +90,37 @@ define([
 			appFooter.render();
 			$('.app-container').append(appFooter.el);						
 
+			console.log("init done");
+
 		},
 
-
+		admin: function() {
+		    console.log("admin here");
+		    var currentUser = { id: "claes1"  };
+			
+		    if (currentUser) {
+			
+			require(["app/views/admin_view","app/models/nodes"], function(AdminView,Nodes) {
+				
+				var adminView = new AdminView();
+				adminView.render();
+				//				
+				$('.app-container').prepend(adminView.el);
+				//				console.log(adminView.el);
+				app.nodes.on('change reset add remove',function(){
+					var adminView = new AdminView();
+					console.log("app.nodes_changed");
+					if ($(".admin-wrapper").is("*")) {
+					    $(".admin-wrapper").remove();
+					} 
+					$('.app-container').prepend(adminView.render().el);
+					
+				    });
+				app.nodes.fetch();
+			    });
+			
+		    }
+		},
 		/**
 		 * Index action for the app route.
 		 */

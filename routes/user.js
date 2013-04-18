@@ -108,7 +108,6 @@ exports.show = function(req, res){
 //	      });
 
 
-
 		  var query = azure.TableQuery
 		      .select()
 		      .from('nodes')

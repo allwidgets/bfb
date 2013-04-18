@@ -94,8 +94,11 @@ app.get('/', routes.index);
 app.get('/_=_', routes.index);
 app.get('/users', user.list);
 app.get('/users/me.js', user.me);
-app.get('/seed', seed.list);
 app.get('/nodes/art1.json', nodes.art1 );
+
+app.get('/seed', seed.list);
+app.delete('/seed/:id', seed.delete);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
