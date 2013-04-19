@@ -17,9 +17,10 @@
          <label class="control-label" for="template">Template</label>
          <div class="controls">
 	   <select name="Template">
-		<option>paragraph</option>
-	     	<option>title</option>
-	     	<option>image</option>
+		<option value="paragraph" >Paragraph</option>
+	     	<option value="title">Title</option>
+	     	<option value="image" >Image</option>
+	     	<option value="article" >Article</option>
   	   </select>
          </div>
        </div>
@@ -27,6 +28,18 @@
          <label class="control-label" for="template">JSON encoded Data</label>
          <div class="controls">
            <textarea name="Data" placeholder=""></textarea>
+         </div>
+       </div>
+       <div class="control-group">
+         <label class="control-label" for="template">Parent</label>
+         <div class="controls">
+           <input name="Parent" placeholder="">
+         </div>
+       </div>
+       <div class="control-group">
+         <label class="control-label" for="template">Template</label>
+         <div class="controls">
+           <input name="Template" placeholder="">
          </div>
        </div>
        <div class="form-actions">
@@ -39,12 +52,19 @@
      <form id="edit_node_form" class="form-horizontal">
        <input type="hidden" id="edit_node_rowkey" name="RowKey">
        <div class="control-group">
+         <label class="control-label" for="template">Key</label>
+         <div class="controls">
+           <div id="edit_disp_rowkey" ></div>
+         </div>
+       </div>
+       <div class="control-group">
          <label class="control-label" for="template">Template</label>
          <div class="controls">
 	   <select id="edit_template" name="Template">
 		<option value="paragraph">Paragraph</option>
 	     	<option value="title" >Title</option>
 	     	<option value="image" >image</option>
+	     	<option value="article" >Article</option>
   	   </select>
          </div>
        </div>
@@ -52,6 +72,24 @@
          <label class="control-label" for="template">JSON encoded Data</label>
          <div class="controls">
            <textarea id="edit_data" name="Data" ></textarea>
+         </div>
+       </div>
+       <div class="control-group">
+         <label class="control-label" for="template">Parent</label>
+         <div class="controls">
+           <input id="edit_parent" name="Parent" placeholder="">
+         </div>
+       </div>
+       <div class="control-group">
+         <label class="control-label" for="template">Nodeorder of subnodes</label>
+         <div class="controls">
+           <input id="edit_nodeorder" name="Nodeorder" placeholder="[]">
+         </div>
+       </div>
+       <div class="control-group">
+         <label class="control-label" for="template">Template</label>
+         <div class="controls">
+           <input id="edit_template" name="Template" placeholder="">
          </div>
        </div>
        <div class="form-actions">

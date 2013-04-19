@@ -51,17 +51,31 @@ define([
 		    return this;
 		},
 		saveNewNode: function() {
-		    var nd=new app.NodeModel($("#new_node_form").toObject());
-		    
-		    console.log(nd.toJSON());
-		    app.nodes.add(nd);
-		    nd.save();
+		    var nd=$("#new_node_form").toObject();
+		    if (dn.Data) { nd.Data=JSON.parse(nd.Data) };
+		    nd.Data = nd.Data || {};
+		    var nnd=new app.NodeModel(nd);		    
+		    console.log(nnd.toJSON());
+		    app.nodes.add(nnd);
+		    nnd.save();
 
+		    return(false);
+		},
+		updateNode: function() {
+		    var nd=$("#edit_node_form").toObject();
+		    if (nd.Data) { nd.Data=JSON.parse(nd.Data) };
+		    //alert(nd);
+		    nd.Data = nd.Data || {};
+		    nd.Parent = nd.Parent || "";
+		    var node=app.nodes.get(nd.RowKey);
+		    node.set(nd);
+		    node.save();
 		    return(false);
 		},
 
 		events: {
 			"click .save_new_node": "saveNewNode",
+			"click .save_edit_node": "updateNode",
 		}
 
 	});

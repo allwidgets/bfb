@@ -28,16 +28,22 @@ exports.list = function(req, res){
     var ret=[];
     var client = azure.createTableService();
     var query = azure.TableQuery
-    .select('RowKey','Template','Timestamp','Ts','Data')
+    .select()
     .from('nodes')
     .where('PartitionKey eq ?', 'partition1');
     client.queryEntities(query, function(error, entities){
 	    if(!error){
 		_und.each(entities,function(obj){
-			ret.push({ "RowKey": obj.RowKey,
-				    "Data": JSON.stringify(obj.Data) ,
-				    "Template": obj.Template ,
-				    "Ts": obj.Ts   });
+			var retel = { "RowKey": obj.RowKey,
+				      "PartitionKey": 'partition1',
+				      "Parent": ( obj.Parent || ""),
+				      "Data": obj.Data ,
+				      "Template": obj.Template ,
+				      "Ts": obj.Ts   };
+			try { 
+			    retel.Data = JSON.parse( retel.Data ); } 
+			catch (err) {console.log("node.Data Format error")} ; 
+			ret.push(retel);
 		    });
 		//		console.log(ret);
 		res.send( JSON.stringify(ret));
@@ -45,3 +51,54 @@ exports.list = function(req, res){
 	});
 
 };
+
+exports.show = function(req, res){
+    res.setHeader('Content-Type', 'application/json');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    var ret={};
+    var client = azure.createTableService();
+    client.queryEntity('nodes'
+			     , 'partition1'
+			     , req.params.id
+			     , function(error, obj){
+				 if(!error){
+				     var ret= { "RowKey": obj.RowKey,
+						"PartitionKey": 'partition1',
+						"Data": JSON.stringify(obj.Data) ,
+						"Parent": ( obj.Parent || ""),
+						"Template": obj.Template ,
+						"Ts": obj.Ts   };
+				     // entity contains the returned entity
+				     console.log(JSON.stringify(ret));
+				     res.send( JSON.stringify(ret));
+				 }
+		       });
+};
+
+
+
+exports.update = function(req, res){
+    res.setHeader('Content-Type', 'application/json');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    var obj=req.body;
+    var ret= { "RowKey": obj.RowKey,
+	       "PartitionKey": 'partition1',
+	       "Data": ( obj.Data  || "{}" ),
+	       "Parent": ( obj.Parent || ""),
+    	       "Template": ( obj.Template || "" ) ,
+    	       "Ts": (new Date).getTime() };
+    if (ret.Data != "{}" ) {ret.Data=JSON.stringify(ret.Data)};
+    console.log(JSON.stringify(ret));
+    var client = azure.createTableService();
+    client.mergeEntity('nodes', ret , function(error){
+				 if(!error){
+				     // entity contains the returned entity
+				     ret.Data=JSON.parse(ret.Data);
+				     console.log(JSON.stringify(ret));
+				     res.send( JSON.stringify(ret));
+				 }
+		       });
+};
+
