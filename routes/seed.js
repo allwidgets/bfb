@@ -38,11 +38,15 @@ exports.list = function(req, res){
 				      "PartitionKey": 'partition1',
 				      "Parent": ( obj.Parent || ""),
 				      "Data": obj.Data ,
+				      "NodeOrder": obj.NodeOrder ,
 				      "Template": obj.Template ,
 				      "Ts": obj.Ts   };
 			try { 
 			    retel.Data = JSON.parse( retel.Data ); } 
 			catch (err) {console.log("node.Data Format error")} ; 
+			try { 
+			    retel.NodeOrder = JSON.parse( retel.NodeOrder ); } 
+			catch (err) {console.log("node.NodeOrder Format error")} ; 
 			ret.push(retel);
 		    });
 		//		console.log(ret);
@@ -66,11 +70,15 @@ exports.show = function(req, res){
 				     var ret= { "RowKey": obj.RowKey,
 						"PartitionKey": 'partition1',
 						"Data": obj.Data ,
+						"NodeOrder": obj.NodeOrder ,
 						"Parent": ( obj.Parent || ""),
 						"Template": obj.Template ,
 						"Ts": obj.Ts   };
 				     try { 
 					 ret.Data = JSON.parse( ret.Data ); } 
+				     catch (err) {console.log("node.Data Format error")} ; 
+				     try { 
+					 ret.NodeOrder = JSON.parse( ret.NodeOrder ); } 
 				     catch (err) {console.log("node.Data Format error")} ; 
 				     
 				     // entity contains the returned entity
@@ -91,9 +99,11 @@ exports.update = function(req, res){
 	       "PartitionKey": 'partition1',
 	       "Data": ( obj.Data  || "{}" ),
 	       "Parent": ( obj.Parent || ""),
-    	       "Template": ( obj.Template || "" ) ,
+	       "NodeOrder": obj.NodeOrder || "[]" ,
+    	       "Template": ( obj.Template || "paragraph" ) ,
     	       "Ts": (new Date).getTime() };
     if (ret.Data != "{}" ) {ret.Data=JSON.stringify(ret.Data)};
+    if (ret.NodeOrder != "[]" ) {ret.NodeOrder=JSON.stringify(ret.NodeOrder)};
     console.log(JSON.stringify(ret));
     var client = azure.createTableService();
     client.mergeEntity('nodes', ret , function(error){

@@ -51,6 +51,7 @@ define([
 		    $("#edit_tab").show();
 		    $("#edit_template option[value='"+adm.model.get("Template")+"']").prop('selected', true);
 		    $("#edit_data").val(JSON.stringify(adm.model.get("Data")));
+		    $("#edit_nodeorder").val(JSON.stringify(adm.model.get("NodeOrder")));
 		    $("#edit_parent").val(adm.model.get("Parent"));
 		    $("#edit_disp_rowkey").html(adm.model.get("RowKey"));
 		    $("#edit_node_rowkey").val(adm.model.get("RowKey"));

@@ -63,11 +63,15 @@ define([
 		},
 		updateNode: function() {
 		    var nd=$("#edit_node_form").toObject();
+		    console.log(nd);
 		    if (nd.Data) { nd.Data=JSON.parse(nd.Data) };
+		    if (nd.NodeOrder) { nd.NodeOrder=JSON.parse(nd.NodeOrder) };
 		    //alert(nd);
 		    nd.Data = nd.Data || {};
+		    nd.NodeOrder = nd.NodeOrder || [];
 		    nd.Parent = nd.Parent || "";
 		    var node=app.nodes.get(nd.RowKey);
+		    console.log(nd);
 		    node.set(nd);
 		    node.save();
 		    return(false);
