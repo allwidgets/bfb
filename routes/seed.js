@@ -74,7 +74,6 @@ exports.show = function(req, res){
 				     catch (err) {console.log("node.Data Format error")} ; 
 				     
 				     // entity contains the returned entity
-				     ret = { "nodes": ret };
 				     console.log(JSON.stringify(ret));
 				     res.send(  JSON.stringify(ret));
 				 }

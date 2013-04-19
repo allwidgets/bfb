@@ -23,9 +23,6 @@ define([
 	app.NodeModel = Backbone.Model.extend({
 		idAttribute: "RowKey",
 		urlRoot: "/nodes",
-		parse: function(response) {
-		    return response.nodes;
-		}
 	});
 
 	return app.NodeModel;
