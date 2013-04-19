@@ -23,7 +23,10 @@ define([
 	 */
 	app.NodeCollection = Backbone.Collection.extend({
 		model: app.NodeModel,
-		url: "/seed"
+		url: "/nodes",
+		parse: function(response) {
+		    return response.nodes;
+		}
 
 	});
 

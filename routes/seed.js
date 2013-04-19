@@ -46,7 +46,7 @@ exports.list = function(req, res){
 			ret.push(retel);
 		    });
 		//		console.log(ret);
-		res.send( JSON.stringify(ret));
+		res.send( JSON.stringify({ "nodes": ret }));
 	    }
 	});
 
@@ -65,13 +65,18 @@ exports.show = function(req, res){
 				 if(!error){
 				     var ret= { "RowKey": obj.RowKey,
 						"PartitionKey": 'partition1',
-						"Data": JSON.stringify(obj.Data) ,
+						"Data": obj.Data ,
 						"Parent": ( obj.Parent || ""),
 						"Template": obj.Template ,
 						"Ts": obj.Ts   };
+				     try { 
+					 ret.Data = JSON.parse( ret.Data ); } 
+				     catch (err) {console.log("node.Data Format error")} ; 
+				     
 				     // entity contains the returned entity
+				     ret = { "nodes": ret };
 				     console.log(JSON.stringify(ret));
-				     res.send( JSON.stringify(ret));
+				     res.send(  JSON.stringify(ret));
 				 }
 		       });
 };
