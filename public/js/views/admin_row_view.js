@@ -46,7 +46,15 @@ define([
 			    }
 			});  
 		},
+		editItem: function() {
+		    var adm=this;
+		    $("#edit_tab").show();
+		    $("#edit_template option[value='"+adm.model.get("Template")+"']").prop('selected', true);
+		    $("#edit_data").val(adm.model.get("Data"));
+		    $("#edit_tab").find("a").click();
+		},
 		events: {
+                    "click .admfld": "editItem",
                     "click .node_del": "deleteItem",
 		},
 	});

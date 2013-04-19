@@ -3,6 +3,7 @@
   <ul class="nav nav-tabs">
     <li class="active"><a href="#tab1" data-toggle="tab">Nodes</a></li>
     <li><a href="#tab2" data-toggle="tab">New Node</a></li>
+    <li id="edit_tab" style="display:none"><a href="#tab3" data-toggle="tab">Edit Node</a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="tab1">
@@ -15,18 +16,46 @@
        <div class="control-group">
          <label class="control-label" for="template">Template</label>
          <div class="controls">
-           <input name="Template" placeholder="">
+	   <select name="Template">
+		<option>paragraph</option>
+	     	<option>title</option>
+	     	<option>image</option>
+  	   </select>
          </div>
        </div>
        <div class="control-group">
          <label class="control-label" for="template">JSON encoded Data</label>
          <div class="controls">
-           <textarea name="Data" placeholder="">
-	   </textarea>
+           <textarea name="Data" placeholder=""></textarea>
          </div>
        </div>
        <div class="form-actions">
          <button id="save_new_node" type="submit" class="save_new_node btn btn-primary">Save changes</button>
+       </div>
+     </form>
+
+    </div>
+    <div class="tab-pane" id="tab3">
+     <form id="edit_node_form" class="form-horizontal">
+       <input type="hidden" id="edit_node_rowkey" name="RowKey">
+       <div class="control-group">
+         <label class="control-label" for="template">Template</label>
+         <div class="controls">
+	   <select id="edit_template" name="Template">
+		<option value="paragraph">Paragraph</option>
+	     	<option value="title" >Title</option>
+	     	<option value="image" >image</option>
+  	   </select>
+         </div>
+       </div>
+       <div class="control-group">
+         <label class="control-label" for="template">JSON encoded Data</label>
+         <div class="controls">
+           <textarea id="edit_data" name="Data" ></textarea>
+         </div>
+       </div>
+       <div class="form-actions">
+         <button id="save_edit_node" type="submit" class="save_edit_node btn btn-primary">Save changes</button>
        </div>
      </form>
 
