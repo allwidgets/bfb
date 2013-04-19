@@ -96,6 +96,7 @@ app.get('/users', user.list);
 app.get('/users/me.json', user.me);
 app.get('/nodes/art1.json', nodes.art1 );
 app.post('/nodes', nodes.create );
+app.delete('/nodes/:id', seed.delete);
 
 app.get('/seed', seed.list);
 app.delete('/seed/:id', seed.delete);

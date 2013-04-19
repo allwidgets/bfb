@@ -40,7 +40,11 @@ define([
 		    return this;
 		},
 		deleteItem: function() {
-		    this.model.destroy();  
+		    this.model.destroy({
+			    success: function() {
+				console.log("DELETED");
+			    }
+			});  
 		},
 		events: {
                     "click .node_del": "deleteItem",
