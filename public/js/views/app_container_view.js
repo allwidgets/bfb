@@ -23,9 +23,9 @@ define([
 	 */
 	app.AppContainer = Backbone.View.extend({
 
-		tagName: "section",
+		tagName: "div",
 
-		className: "app-container",
+		//		className: "app-container",
 
 		// events: {
 		// 	"click .button-create-new-event": "createNewEvent",

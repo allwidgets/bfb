@@ -76,7 +76,7 @@ define([
 
 			var navbarView = new AppNavbar({ user: app.me.toJSON() } );
 			navbarView.render();
-			$('body').prepend(navbarView.el);
+			$('.navbar').html(navbarView.el);
 
 
 			/**
@@ -84,7 +84,7 @@ define([
 			 */
 			var appContainer = new AppContainer();
 			appContainer.render();
-			$('body').append(appContainer.el);
+			$('.app-container').html(appContainer.el);
 
 
 			/**

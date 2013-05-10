@@ -23,9 +23,9 @@ define([
 	 */
 	app.Navbar = Backbone.View.extend({
 
-		tagName: "nav",
+		tagName: "div",
 
-		className: "navbar navbar-fixed-top",
+		//		className: "navbar navbar-fixed-top",
 
 		events: {
 			"click .btn-log-in": "logIn",

@@ -77,7 +77,7 @@ passport.deserializeUser(function(obj, done) {
 
 app.post('/login',
 	 passport.authenticate('local', { successRedirect: '/',
-		     failureRedirect: '/login' }));
+		     failureRedirect: '/#login' }));
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
