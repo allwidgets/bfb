@@ -23,8 +23,9 @@ define([
 	 * @type {[app.ArticleControlView]}
 	 */
 	app.ArticleControlView = Backbone.View.extend({
-		
-		className: "article-control-wrapper",		
+
+		tagName: "article",		
+		className: "articleWrapper",		
 
 		/**
 		 * Initializes the ArticleControlView view.
