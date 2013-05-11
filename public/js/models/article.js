@@ -21,11 +21,25 @@ define([
 	 * @type {[app.ArticlesObject]}
 	 */
 	app.ArticleObject = Backbone.Model.extend({
-		url: "/nodes/art1.json?content=true",
+		url: function() {
+		    return "/api/nodes/"+this.get("RowKey")
+		},
+		fetch: function( options, queryObj ){
+		    var _url = this.url;
+
+		    if( queryObj ){
+			this.url = this.url() + '?' + $.param( queryObj );
+		    }
+		    Backbone.Model.prototype.fetch.apply(this, options);    
+		    this.url = _url;
+		}
+
+
+
 	});
 
 	app.ArticlesObject = Backbone.Collection.extend({
-
+		model: app.ArticleObject
 	});
 
 	return app.ArticlesObject;

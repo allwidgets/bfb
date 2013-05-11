@@ -105,8 +105,8 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 
 
   buffer += "<h3>";
-  if (stack1 = helpers.data) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.data; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "</h3>";
   return buffer;
@@ -114,14 +114,14 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 templates['paragraph'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Handlebars.helpers; data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, functionType="function";
 
 
   buffer += "<p>";
-  if (stack1 = helpers.data) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.data; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "</p>\n";
+  if (stack1 = helpers.text) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.text; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "</p>\n";
   return buffer;
   });
 templates['pieone'] = template(function (Handlebars,depth0,helpers,partials,data) {

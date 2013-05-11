@@ -22,7 +22,7 @@ define([
 	 */
 	app.NodeModel = Backbone.Model.extend({
 		idAttribute: "RowKey",
-		urlRoot: "/nodes",
+		urlRoot: "/api/nodes",
 	});
 
 	return app.NodeModel;

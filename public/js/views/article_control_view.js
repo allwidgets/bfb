@@ -40,14 +40,20 @@ define([
 		    var templates={};
 		    templates["paragraph"]=Handlebars.templates.paragraph;
 		    templates["pieone"]=Handlebars.templates.pieone;
-		    templates["headerh3"]=Handlebars.templates.headerh3;
+		    templates["title"]=Handlebars.templates.headerh3;
 		    this.$el.html(this.template());
-		    var nodes=this.model.get("nodes");
-		    _.each(this.model.get("nodeorder"),function(key){
+		    var nodes=this.model.get("Nodes");
+		    console.log(this.model.toJSON());
+		    _.each(this.model.get("NodeOrder"),function(key){
+			    console.log(key)
 			    var node=nodes[key];
-			    console.log(node);
-			    var the_template=templates[node.template];
-			    avc.$el.append(the_template( { data: node.data } ));
+			    if (node) {
+				console.log(node);
+				console.log(node.Template);
+				var the_template=templates[node.Template];
+				console.log(JSON.parse(node.Data));
+				avc.$el.append(the_template( JSON.parse(  node.Data ) ));
+			    }
 			});
 		    
 		    return this;

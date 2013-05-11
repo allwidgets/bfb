@@ -23,7 +23,7 @@ define([
 	 */
 	app.NodeCollection = Backbone.Collection.extend({
 		model: app.NodeModel,
-		url: "/nodes",
+		url: "/api/nodes",
 		parse: function(response) {
 		    return response.nodes;
 		}

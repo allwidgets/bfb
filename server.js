@@ -94,12 +94,12 @@ app.get('/', routes.index);
 app.get('/_=_', routes.index);
 app.get('/users', user.list);
 app.get('/users/me.json', user.me);
-app.get('/nodes/art1.json', nodes.art1 );
-app.get('/nodes', seed.list );
-app.post('/nodes', nodes.create );
-app.delete('/nodes/:id', seed.delete);
-app.get('/nodes/:id', seed.show);
-app.put('/nodes/:id', seed.update);
+//app.get('/nodes/art1.json', nodes.art1 );
+app.get('/api/nodes', seed.list );
+app.post('/api/nodes', nodes.create );
+app.delete('/api/nodes/:id', nodes.delete);
+app.get('/api/nodes/:id', nodes.show);
+app.put('/api/nodes/:id', nodes.update);
 
 
 app.get('/seed', seed.list);

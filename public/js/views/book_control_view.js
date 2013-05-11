@@ -33,10 +33,13 @@ define([
 		    var bvc=this;
 
 		    bvc.template = Handlebars.templates.book_control;
-		    bvc.Article = new app.ArticleObject();
-		    bvc.Article.fetch();
+		    bvc.Article = new app.ArticleObject({"RowKey":"75292cb0-a5e6-11e2-9404-334bbfe0ec0d"});
 		    bvc.Article.on('change',function(){bvc.render()});
-
+		    //		    app.articles= new app.ArticlesObject();
+		    //		    app.articles.add(bvc.Article);
+		    app.article=bvc.Article;
+		    bvc.Article.fetch({},{ "content": true });
+		    
 		},
 
 		render: function() {
