@@ -52,7 +52,7 @@ define([
 		},
 		saveNewNode: function() {
 		    var nd=$("#new_node_form").toObject();
-		    if (dn.Data) { nd.Data=JSON.parse(nd.Data) };
+		    if (nd.Data) { nd.Data=JSON.parse(nd.Data) };
 		    nd.Data = nd.Data || {};
 		    var nnd=new app.NodeModel(nd);		    
 		    console.log(nnd.toJSON());

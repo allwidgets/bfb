@@ -42,6 +42,7 @@ define([
 		    templates["paragraph"]=Handlebars.templates.paragraph;
 		    templates["pieone"]=Handlebars.templates.pieone;
 		    templates["title"]=Handlebars.templates.headerh3;
+		    templates["image"]=Handlebars.templates.image;
 		    this.$el.html(this.template());
 		    var nodes=this.model.get("Nodes");
 		    console.log(this.model.toJSON());
