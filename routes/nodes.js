@@ -104,7 +104,7 @@ exports.show = function(req, res){
 							    , function(error, entries){
 								if(!error){
 								    _und.each(entries,function(subobj){ ret.Nodes[subobj.RowKey]=formatObj(subobj) });
-								    console.log(JSON.stringify(ret));
+								    //console.log(JSON.stringify(ret));
 								    res.send(  JSON.stringify(ret));
 								} else {
 								    res.send(  JSON.stringify(ret));
